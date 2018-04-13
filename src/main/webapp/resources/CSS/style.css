@@ -1,0 +1,203 @@
+@charset "UTF-8";
+/*-----reset----*/
+html{
+   height: 100%;
+}
+
+body{
+
+   margin: 0px;
+   height: 100%;
+}
+
+ul{
+   margin: 0px;
+   padding: 0px;
+   list-style-type: none;
+}
+
+h1, h2, h3, h4, h5, h6{
+   margin: 0px;
+}
+
+/* ----------my style cascade------------- */
+.hidden{
+   display: none;
+}
+/* ----------header------------- */
+.header{
+   height: 45px;
+   width: 100%;
+   position: fixed;
+   top: 0px;
+   background: #ffffff;
+   border-bottom: 1px solid #666666;
+}
+   .header > h1{
+      font-size: 14px;
+      height: inherit;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+         
+   }
+   /* ------------main-menu--------------------------------------- */
+   .main-menu{
+      position: relative;
+      top: -45px;
+   }
+      
+      .main-menu ul{
+         display: flex;
+         justify-content: space-between;
+      }
+      
+      .main-menu li,
+      .main-menu li a{
+         width: 45px;
+         height: 45px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+      }
+
+/* ------------.main--------------------------------------- */
+.text {
+   position: relative;
+}
+
+.text-concat {
+   position: relative;
+   display: inline-block;
+   word-wrap: break-word;
+   overflow: hidden;
+   max-height: 2.4em;
+   /* (Number of lines you want visible) * (line-height) */
+   line-height: 1.2em;
+   text-align: justify;
+}
+
+.text.ellipsis::after {
+   content: "...";
+   position: absolute;
+   right: -12px;
+   bottom: 4px;
+}
+
+.main{
+   margin-top: 45px;
+   
+}
+/*모듈단위로 > > > > >구조 들어간다*/
+   .main .note-list{
+      font-size: 14px;
+      line-height: 19px;
+      color: #595959;
+   }
+   
+      .main .note-list ul{
+         
+      }
+      
+         .main .note-list li{
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+         }
+         
+         
+            .note-list li > div:first-child{
+               font-size: 17px;
+               line-height: 21px;
+               color: #000000;
+               margin-bottom: 5px;      
+            }
+            
+            .note-list li > div:nth-child(2){
+               display: -webkit-box;
+               -webkit-box-orient: vertical;
+               -webkit-line-clamp: 3;
+               overflow: hidden;
+               
+               /* /*flex 지원 안하는 곳에선 이것 사용*/
+               line-height: 1.2em;
+               max-height: 3.6em; 
+            }
+            
+            
+            .note-list li > div:last-child{
+               font-size: 13px;
+               display: flex;
+               justify-content: space-between;
+            }
+            
+
+            .note-list li > div:not(:first-child){
+               margin-top: 5px;
+            }
+            
+               
+               .note-list li > div > span:first-child{
+                  color: #6bacca;
+                  
+               }
+               
+.btn-list{
+   position: fixed;
+   right: 20px;
+   bottom: 20px;
+   border: 1px solid red;
+}
+
+.btn-list > ul{
+   border: 1px solid blue;
+   display: flex;
+   flex-direction: column;
+}
+
+.btn-list > ul > li{
+   background: pink;
+   height: 50px;
+   width: 50px;
+   position: absolute;
+   right:0px;
+   bottom:0px;
+   border-radius: 25px;
+   
+   transition: 500ms;
+}
+
+.btn-list > ul > li:nth-child(1) {
+   order: 2;
+   background: #80ffff;
+   z-index: 100;
+}
+
+#edit-button.show {
+   bottom: 60px;
+}
+
+#delete-button.show {
+   bottom: 120px;   
+}
+
+
+.aside{
+   width: 80%;
+   height: calc(100% - 46px);
+   background: #fff;
+   
+   /* background: #00000077; */
+   /* rgba  alpha 77는 투명도 
+    opacity는 글자도 투명하게함*/
+   position: fixed;
+   top: 46px;
+   left: -80%;
+   transition: 0.3s;
+   transition-property: left;
+}
+
+.aside.show{
+   left: 0%;
+   box-shadow: 3px 3px 3px #797979;
+}
+               
