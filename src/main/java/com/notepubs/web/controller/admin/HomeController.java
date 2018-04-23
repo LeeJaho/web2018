@@ -1,4 +1,4 @@
-package com.notepubs.web.controller.author;
+package com.notepubs.web.controller.admin;
 
 
 import java.util.List;
@@ -13,14 +13,14 @@ import com.notepubs.web.entity.Note;
 import com.notepubs.web.service.author.NoteService;
 
 
-@Controller("authorHomeController")
-@RequestMapping("/author/")
+@Controller("adminHomeController")
+@RequestMapping("/admin/")
 public class HomeController {
 	
 	@GetMapping("index")
 	public String index() {
 		
-		return "author.index";
+		return "admin.index";
 	}
 
 }

@@ -28,5 +28,4 @@ public class HbMemberDao implements MemberDao {
 		session.save(member);
 		return 1;
 	}
-
 }

@@ -9,12 +9,13 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 public class NotepubsDispatcherServletInitializer 
 			extends AbstractAnnotationConfigDispatcherServletInitializer{
 
-	//기본적인 MVC 외의 것들 모아두기
+	//기본적인 MVC 외의 것들 모아두기 // 서비스 ,, 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		
 		return new Class[] {
-				NotepubsSecurityConfig.class
+				NotepubsSecurityConfig.class,
+				HibernateConfig.class
 		};
 		
 	}
@@ -26,7 +27,7 @@ public class NotepubsDispatcherServletInitializer
 		return new Class[] {
 			ServletContextConfig.class,
 			NotepubsMvcConfigurer.class,
-			HibernateConfig.class,
+			
 			TilesConfig.class
 			
 			};

@@ -19,6 +19,8 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 		@ComponentScan("com.notepubs.web.dao.hb"),
 		@ComponentScan("com.notepubs.web.service")
 })
+
+//spring을 이용해 Hibernate를 얹은거
 public class HibernateConfig {
 	
 	

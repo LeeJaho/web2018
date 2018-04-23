@@ -10,6 +10,8 @@
 			<a href="${root}/member/login">로그인</a>
 			<a href="${root}/logout">로그아웃</a>
 			<a href="${root}/member/join">회원가입</a>
+			<a href="${root}/author/index ">관리</a>
+			<a href="${root}/admin/index">관리자</a>
 		</li>
 	</ul>
 

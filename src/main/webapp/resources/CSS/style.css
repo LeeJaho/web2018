@@ -24,6 +24,34 @@ h1, h2, h3, h4, h5, h6{
 .hidden{
    display: none;
 }
+/* ----------button style------------- */
+.btn{
+	display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.btn-like{
+	 border: 1px solid #c9c9c9;
+    padding: 10px 15px 10px 40px;
+    background: url(../images/ic_thumb_up_black_24dp_1x.png) no-repeat 10px center;
+}
 /* ----------header------------- */
 .header{
    height: 45px;

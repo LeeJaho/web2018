@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.notepubs.web.dao.NoteDao;
+import com.notepubs.web.dao.NoteLikeDao;
+
 import com.notepubs.web.entity.Note;
+import com.notepubs.web.entity.NoteLike;
 
 
 
@@ -15,6 +18,9 @@ public class NoteService {
 
 	@Autowired
 	private NoteDao noteDao;
+	
+	@Autowired
+	private NoteLikeDao noteLikeDao;
 	
 	public List<Note> getNoteList(Integer page) {
 		
@@ -25,8 +31,19 @@ public class NoteService {
 
 	public Note getNote(Integer id) {
 		
-		noteDao.get(id);
-		return null;
+		Note note = noteDao.get(id);
+		return note;
+	}
+
+	public void setNoteLike(Integer noteId, String memberId) {
+		
+		NoteLike noteLike = noteLikeDao.get(noteId, memberId);
+		
+		if(noteLike == null)
+			noteLikeDao.insert(new NoteLike(noteId, memberId));
+		else
+			noteLikeDao.delete(noteLike);
+		
 	}
 	
 }
