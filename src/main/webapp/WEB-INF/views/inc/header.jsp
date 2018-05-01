@@ -4,7 +4,7 @@
 <!-- 절대경로를 쓰기 위해서 -> 왜 절대경로를 써? -->
 <c:set var="root" value="${pageContext.request.contextPath }" />
 	<header class="header">
-		<h1>책 제목</h1>
+		<h1><a href="${root}/index"><img src="${root}/resources/images/logo-ldpi.png"/></a></h1>
 		<nav class="main-menu">
 			<h1 class="hidden">메인메뉴</h1>
 				<ul>

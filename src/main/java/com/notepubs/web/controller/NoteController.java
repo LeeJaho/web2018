@@ -3,8 +3,6 @@ package com.notepubs.web.controller;
 import java.security.Principal;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.notepubs.web.entity.Note;
-import com.notepubs.web.entity.NoteLike;
+import com.notepubs.web.entity.NoteView;
 import com.notepubs.web.service.NoteService;
 
 
@@ -30,8 +26,9 @@ public class NoteController {
 	@RequestMapping("list")
 	public String list(@RequestParam(value="p", defaultValue="1") Integer page, Model model) {
 		
-		List<Note> notes = service.getNoteList(page);
+		List<NoteView> notes = service.getNoteList(page);
 		model.addAttribute("notes", notes);
+		
 		//System.out.println(page);
 		//String page = request.getParameter("p"); //더이상 이렇게 사용하지 않아도 됨
 		
@@ -50,8 +47,11 @@ public class NoteController {
 	//pathVariable -> 경로에 대한 정보?!
 	public String detail(@PathVariable("id") Integer id, Model model) {
 		
-		Note note = service.getNote(id);
+		//NoteView prev = service.getPrevNote(id);
+		//NoteView next = service.getNextNote(id);
+		NoteView note = service.getNote(id);
 		model.addAttribute("note", note);
+		//model.addAllAttributes("prev",prev);
 		return "note.detail";
 	}
 	

@@ -39,7 +39,7 @@ $(function(){
     var toggleButton = $("#ex3 .btn-toggle");
     var img = $("#ex3 img");
     var textBox = $("#ex3 input[type=text]");
-    
+    	
     okButton.click(function(){
     //    img.attr("src", "images/han.png");
     // 	// var imgName = textBox.val();
@@ -206,5 +206,98 @@ $(function(){
         // .remove();
 
         box.empty();
+    });
+});
+
+/*example 7 - 화면전환 예제*/
+//event object, event bubble, capture, trigger, ajax, dom 점검
+$(function(){
+    var viewer = $("#ex7 .viewer");
+    var photoBox = $("#ex7 .photo-box");
+    var photoList = $("#ex7 .photo-box > ul");
+    var leftButton = $("#ex7 .btn-left");
+    var rightButton = $("#ex7 .btn-right");
+    //var img = $("#ex7 .image")
+    photoList.css("left", photoList.css("left"));
+    
+    /*var img = photoList.find("img").first();
+    img.click(function(){
+        alert("이미지를 클릭했습니다.")
+    });
+
+    photoList.click(function(){
+        alert("List를 클릭하셨습니다.")
+    });*/
+    leftButton.click(function(){
+        photoList.css("left", "-=180px");
+    });
+
+    rightButton.click(function(){
+        photoList.css("left", "+=180px");
+    });
+    
+    //모든 img 엘리먼트 각각 click 이벤트를 바인딩하는 방식
+    /*photoList.find("img").click(function(e){
+    	var target = $(e.target)
+    	//this -> var target = $(this);
+    	
+    	$("<img />")
+        .attr("src", target.attr("src"))
+        .appendTo(viewer);
+    	
+    	
+    });*/
+    
+    //위의 이벤트 바인딩을 개선한 방식 : using bubbling
+    /*photoList.click(function(e){
+    	var target = $(e.target)
+    	
+    	viewer.empty();
+    	
+    	$("<img />")
+        .attr("src", target.attr("src"))
+        .appendTo(viewer);
+    	
+    	
+    });*/
+    
+    //List 누르면 사진 추가됨
+    photoList.get(0).addEventListener("click", function(e){
+    	//alert("list : parent");
+    	var target = $(e.target)
+    	
+    	viewer.empty();
+    	
+    	$("<img />")
+        .attr("src", target.attr("src"))
+        .appendTo(viewer);
+    	
+    	target.css("border", "1px solid red");
+    	
+    }, false);
+    
+    //1.특정(예: 두번째) 이미지는 다른 일을 시킬 수도 있다
+    // 그것이 추가적인 일일수도 있고
+    // 배타적인 일일 수도 있고
+    // 그것이 순서가 필요한 일일 수도 있다
+    photoList.find("img").get(1).addEventListener("click", function(evt){
+    	//alert("img");
+    	//1. 추가적인 일을 처리할 때
+    	/*선택된 이미지의 경계선의 색을 변경*/
+    	/*var target = $(evt.target);
+    	target.css("border", "1px solid red");*/
+    	
+    	
+    	//2. 추가적인 일이 순서를 가질 경우
+    	var target = $(evt.target);
+    	target.css("border", "1px solid blue");
+    	
+    	//더이상 event 멈춰라!
+    	evt.stopPropagation();
+    	
+    	
+    	//3. 배타적인 일일 경우
+    	
+    	
     });
 });

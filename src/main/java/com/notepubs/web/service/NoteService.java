@@ -7,9 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.notepubs.web.dao.NoteDao;
 import com.notepubs.web.dao.NoteLikeDao;
-
-import com.notepubs.web.entity.Note;
 import com.notepubs.web.entity.NoteLike;
+import com.notepubs.web.entity.NoteView;
 
 
 
@@ -22,16 +21,20 @@ public class NoteService {
 	@Autowired
 	private NoteLikeDao noteLikeDao;
 	
-	public List<Note> getNoteList(Integer page) {
+	public List<NoteView> getNoteList(Integer page) {
 		
 		//noteDao = new ?();
-		List<Note> list = noteDao.getList(page);
+		List<NoteView> list = noteDao.getList(page);
 		return list;
 	}
 
-	public Note getNote(Integer id) {
+	public NoteView getNote(Integer id) {
 		
-		Note note = noteDao.get(id);
+		NoteView note = noteDao.get(id);
+		NoteView prevNote = noteDao.getPrevNote(id);
+		NoteView nextNote = noteDao.getNextNote(id);
+		note.setPrevNote(prevNote);
+		note.setNextNote(nextNote);
 		return note;
 	}
 

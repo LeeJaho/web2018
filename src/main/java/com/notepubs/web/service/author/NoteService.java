@@ -6,17 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.notepubs.web.dao.NoteDao;
-import com.notepubs.web.entity.Note;
+import com.notepubs.web.entity.NoteView;
 
 @Service("authorNoteService")
 public class NoteService {
 	
 	@Autowired
 	private NoteDao noteDao;
-	public List<Note> getNoteList(Integer page) {
+	public List<NoteView> getNoteList(Integer page) {
 		
 		
-		List<Note> list = noteDao.getList(page);
+		List<NoteView> list = noteDao.getList(page);
 		return list;
 	}
 
