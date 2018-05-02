@@ -20,6 +20,7 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
 @ComponentScan(basePackages="com.notepubs.web.config")
 public class NotepubsSecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	//
 	@Autowired
 	private DataSource dataSource;
 	

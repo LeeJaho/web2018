@@ -39,6 +39,7 @@ pageEncoding="UTF-8"%>
 					<li><a><img class="" src="images/acon.png"/></a></li>
 					<li><a><img class="" src="images/han.png"/></a></li>
 					<li><a><img class="" src="images/answeris.png"/></a></li>
+					<li><a><img class="" src="images/han.png"/></a></li>
 				</ul>
 			</div>
 			<div>

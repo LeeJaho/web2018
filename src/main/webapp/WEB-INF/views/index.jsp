@@ -82,7 +82,7 @@
          //cateogry switch 
          $(function(){
         	 //(Jquery 아님)
-        	 var categoryViews = $(".category-views")
+        	 var categoryViews = $(".category-views");
         	 var categoryList = $(".category ul");
              var categoryButton = $(".category ul > li");
              
@@ -92,6 +92,10 @@
             		return;
              	//alert("aa");
              	var target = e.target;
+             	
+             
+                //target.css("background", 'url("resources/images/ajax-loader.gif") no-repeat center');
+             	
              	
              	if(target.nodeName=="A"){
              		target = target.parentNode;
@@ -105,22 +109,50 @@
              	var view = $("."+viewName);
              	view.css("border","1px solid red");
 
-             	categoryViews.children("section").addClass("hidden");
-             	
-             	if(view.hasClass("hidden"))
-             		view.removeClass("hidden");
-             		
-             	e.preventDefault();
              	//view가 null이면 ajax로 가져오기
+             	
+             	
+             	if(view.length == 0){
+             		var ajaxIcon = $("<img />")
+				                    .attr("src", "resources/images/ajax-loader.gif")
+				                    .css({
+				                    	position: "absolute",
+				                    	top: "11px",
+				                    	left: "8px"
+				                    })
+				                    .appendTo(target);
+             		
+             		$.get("book-list-partial", function(data){
+	             		var html = categoryViews.html();
+             			//alert(data);
+             			categoryViews.html(html+data);
+             		
+             			ajaxIcon.remove();
+             		
+             		});
+             		
+             		
+             	}
+             	
+             	//덮어쓰는 느낌 -> 가져오긴 한다
+             	//categoryViews.load("book-list-partial");
              	
              	//view를 show 하기
              	
+             	
+             	 categoryViews.children("section").addClass("hidden");
+             	
+             	/*if(view.hasClass("hidden"))*/
+             		
+             		
+             	e.preventDefault(); 
+             	view.removeClass("hidden");
              });
          });
          
       </script>
    
-   <section class="notepubs shutter">
+   <section class="notepubs shutter"> 
    	<h1 class="hidden">서비스 안내</h1>
    	<div class="shutter-button-box" style="position: relative;">
    		<span class="">확장 / 축소</span>

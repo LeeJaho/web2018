@@ -232,8 +232,21 @@ $(function(){
         photoList.css("left", "-=180px");
     });
 
+    
     rightButton.click(function(){
+    	
+    	if(true){
+    		
+    	}
+    	
+    	
         photoList.css("left", "+=180px");
+        
+    });
+    
+    photoList.on("transitionend", function(){
+    	if(-1*photoBox.outerWidth() > parseInt(photoList.css("left")))
+    		alert("끝?");
     });
     
     //모든 img 엘리먼트 각각 click 이벤트를 바인딩하는 방식

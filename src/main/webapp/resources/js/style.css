@@ -237,9 +237,10 @@ body {
 }
 	
 	.photo-box ul{
-		display: flex;
+		display: inline-flex;
 		position: relative;
 		transition: 400ms;
+		border: 1px solid red;
 		/* left:-180px; */
     }
 
