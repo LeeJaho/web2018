@@ -105,3 +105,18 @@
 				text-decoration: none;
 				font-size: 12px;
 			}
+			
+.category-views{
+	position: relative;
+}
+
+	/* .category-views > section{
+		transition: 400ms;
+	} */
+	.category-views .show{
+		border: 1px solid red;
+		position: absolute;
+		top: 0px;
+		right: 300px;
+		width: 100%;
+	}

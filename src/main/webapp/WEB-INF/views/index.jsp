@@ -121,8 +121,11 @@
 
              	//view가 null이면 ajax로 가져오기
              	
-             	
-             	if(view.length == 0){
+             	//1. CSS로 초기상태 만들기
+               // -view들의 position이 모두 absolute로 겹치게 한다.
+               // -view들의 부모는 첫번째 view의 높이와 같게 한다.
+               // 단, 그 높이는 실행해봐야 아는 문제이므로 스크립트로 처리한다.
+             	/* if(view.length == 0){
              		ajaxIcon = $("<img />")
 				                    .attr("src", "resources/images/ajax-loader.gif")
 				                    .css({
@@ -137,41 +140,102 @@
 	             			//alert(data);
 	             			categoryViews.html(html+data);
 	             		
-	             			view = categoryViews.find("."+viewName);
+	             			var views = categoryViews.find("section");
+	             			var height = Math.max(views.eq(0).height(), views.eq(1).height());
+	             			views.css("height", height); */
 	             			
+	             			/* console.log(views.eq(0).height());
+	             			console.log(views.eq(1).height()); */
+	             			
+	             			
+	             			          			
+	             			/* view = categoryViews.find("."+viewName);
+	             			view.addClass("show")
+	             				.animate({
+				             		right: "0px"
+				             	},400,function(){
+				             		view.prev().remove();
+				             		views.css({
+				             			position: "static",
+				             			height: "100%"
+				             		});
+				             	}) */
+	             				
+	             			
+	             			
+	             			/* setTimeout(function(){
+		             			view
+		                 		.css({
+		                 			
+		                 			right: "0px"
+		                 		});	             				
+	             			},30); */
 	             			//alert(view);
-	             			ajaxIcon.remove();
+	             			/* ajaxIcon.remove(); */
 	             			
 	             			//ajaxIcon Object가 들어가니까 null로 바꿔줌
 	             			//alert(ajaxIcon);
-	             			ajaxIcon = null;
-	             		
+	             			/* ajaxIcon = null;
 	             		});
-             	}
+             	} */
              	
-             	view
-             		.children("ul")
-             		.css({
-             			position: "relative",
-             			left: "-60px"
-             		})
+             	
              	
              	//덮어쓰는 느낌 -> 가져오긴 한다
              	//categoryViews.load("book-list-partial");
              	
-             	//view를 show 하기
+             	//view를 show 하기(여기다가만 두면 위에 if문 걸렸을 때 view라는 객체가 생성이 안됐을 수도 있으니)
+             	//위에다가 하나 여기다가 하나 해줘야함(비동기에 대한 개념!!!!)
+             	/* else view.addClass("show"); */
              	
-             	
-             	 categoryViews.children("section").addClass("hidden");
+             	//categoryViews.children("section").addClass("hidden");
              	
              	/*if(view.hasClass("hidden"))*/
-             		
-             		
              	
-             	view.removeClass("hidden");
+             	/* view.removeClass("hidden");
              });
-         });
+         }); */
          
+         
+         
+        	/* if(view.length == 0){
+         		ajaxIcon = $("<img />")
+			                    .attr("src", "resources/images/ajax-loader.gif")
+			                    .css({
+			                    	position: "absolute",
+			                    	top: "11px",
+			                    	left: "8px"
+			                    })
+			                    .appendTo(target);
+         
+         $.get(viewName+"-partial", function(data){
+      		var html = categoryViews.html();
+         categoryViews.html(html+data);
+  		
+			var views = categoryViews.find("section");
+			var height = Math.max(views.eq(0).height(), views.eq(1).height());
+			views.css("height", height);
+         view = categoryViews.find("."+viewName);
+			view.addClass("show")
+				.animate({
+          		right: "0px"
+          	},400,function(){
+          		view.prev().remove();
+          		views.css({
+          			position: "static",
+          			height: "100%"
+          		});
+          	})
+         
+     	ajaxIcon.remove();
+         ajaxIcon = null;
+		});
+	}
+
+     	else view.addClass("show");
+         view.removeClass("hidden");
+     });
+ }); */
       </script>
    
    <section class="notepubs shutter"> 
@@ -248,23 +312,23 @@
         		 </ul>
 			</section>
 			
-			<!-- <section class="book-list hidden">
+			<section class="book-list">
 				<h1 class="hidden">공개북 목록</h1>
 				<ul>
 					<li>
 						<a href="note/list">책</a>
 					</li>
 				</ul>
-			</section> -->
+			</section>
 			
-			<!-- <section class="published-book-list hidden">
+			<section class="published-book-list">
 				<h1 class="hidden">출간된 책 목록</h1>
 				<ul>
 					<li>
 						<a href="note/list">책</a>
 					</li>
 				</ul>
-			</section> -->
+			</section>
 		</div>
 		
 	</main>
