@@ -85,35 +85,45 @@
         	 var categoryViews = $(".category-views");
         	 var categoryList = $(".category ul");
              var categoryButton = $(".category ul > li");
+             var ajaxIcon = null;
              
              categoryList.click(function(e){
             	 //e.target 내가 클릭한 것 / e.currentTarget binding 되어 잇는것?
             	if(e.target === e.currentTarget)
             		return;
-             	//alert("aa");
-             	var target = e.target;
              	
+            	 
+            	//alert("aa");
+             	var target = e.target;
+             	//alert(target);
              
                 //target.css("background", 'url("resources/images/ajax-loader.gif") no-repeat center');
              	
-             	
+             	//A태그를 클릭했을 때
              	if(target.nodeName=="A"){
              		target = target.parentNode;
+             		e.preventDefault(); 
              		//alert(target);
              	}
+             	
+            	if(ajaxIcon != null){
+            		alert("처리중입니다.")
+            		return;
+            	}
+            	//alert(ajaxIcon); 
              	
              	var viewName = target.dataset.viewName;
              	//alert(viewName);
              	
              	//view 객체 얻기
              	var view = $("."+viewName);
-             	view.css("border","1px solid red");
+             	//view.css("border","1px solid red");
 
              	//view가 null이면 ajax로 가져오기
              	
              	
              	if(view.length == 0){
-             		var ajaxIcon = $("<img />")
+             		ajaxIcon = $("<img />")
 				                    .attr("src", "resources/images/ajax-loader.gif")
 				                    .css({
 				                    	position: "absolute",
@@ -121,18 +131,30 @@
 				                    	left: "8px"
 				                    })
 				                    .appendTo(target);
-             		
-             		$.get("book-list-partial", function(data){
-	             		var html = categoryViews.html();
-             			//alert(data);
-             			categoryViews.html(html+data);
-             		
-             			ajaxIcon.remove();
-             		
-             		});
-             		
-             		
+             		 
+	             		$.get(viewName+"-partial", function(data){
+		             		var html = categoryViews.html();
+	             			//alert(data);
+	             			categoryViews.html(html+data);
+	             		
+	             			view = categoryViews.find("."+viewName);
+	             			
+	             			//alert(view);
+	             			ajaxIcon.remove();
+	             			
+	             			//ajaxIcon Object가 들어가니까 null로 바꿔줌
+	             			//alert(ajaxIcon);
+	             			ajaxIcon = null;
+	             		
+	             		});
              	}
+             	
+             	view
+             		.children("ul")
+             		.css({
+             			position: "relative",
+             			left: "-60px"
+             		})
              	
              	//덮어쓰는 느낌 -> 가져오긴 한다
              	//categoryViews.load("book-list-partial");
@@ -145,7 +167,7 @@
              	/*if(view.hasClass("hidden"))*/
              		
              		
-             	e.preventDefault(); 
+             	
              	view.removeClass("hidden");
              });
          });
@@ -208,18 +230,22 @@
 			<ul>
 				<li data-view-name="note-list"><a href="">노트</a></li>
 				<li data-view-name="book-list"><a href="">책</a></li>
-				<li data-view-name="published-book-list"><a href="">출간본</a></li>
+				<li data-view-name="published-list"><a href="">출간본</a></li>
 			</ul>
 		</section>
 		
 		<div class="category-views">
-			<section class="note-list hidden">
+			<section class="note-list">
 				<h1 class="hidden">공개노트목록</h1>
 				<ul>
-					<li>
-						<a href="note/list">노트보기</a>
-					</li>
-				</ul>
+		            <c:forEach var="note" items="${notes}">
+		            <li>
+		               <div><a href="${note.id}">${note.title }</a></div>
+		               <div>${note.content}</div>
+		               <div><span>분류</span><span>${note.regDate}</span><span>${note.commentCount}</span></div>
+		            </li>
+		            </c:forEach>
+        		 </ul>
 			</section>
 			
 			<!-- <section class="book-list hidden">
@@ -231,14 +257,14 @@
 				</ul>
 			</section> -->
 			
-			<section class="published-book-list hidden">
+			<!-- <section class="published-book-list hidden">
 				<h1 class="hidden">출간된 책 목록</h1>
 				<ul>
 					<li>
 						<a href="note/list">책</a>
 					</li>
 				</ul>
-			</section>
+			</section> -->
 		</div>
 		
 	</main>

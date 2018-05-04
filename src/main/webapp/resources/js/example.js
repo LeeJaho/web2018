@@ -245,8 +245,28 @@ $(function(){
     });
     
     photoList.on("transitionend", function(){
-    	if(-1*photoBox.outerWidth() > parseInt(photoList.css("left")))
+    	/*if(-1*parseInt(photoList.width()) > parseInt(photoList.css("left")))
     		alert("끝?");
+    	var s = parseInt(photoList.width());
+    	alert(s);*/
+    	var boxRight = photoBox.width();
+    	var listRight = parseInt(photoList.css("left"))+photoList.width();
+    	
+    	if(boxRight > listRight){
+    		//alert("다음 사진 가져오기");
+    		$.get("../../note-photo-list", function(data){
+    			var photos = JSON.parse(data);
+         		//alert(photos[0]);
+    			
+    			//1. img 객체를 만들고
+         		var img = $("<img />")
+         		//2. src에 photos[0] 이름을 대입하고
+			                .attr("src", "images/"+photos[0])
+			    //3. photoList에 추가한다
+			                .appendTo(photoList);
+         		//4. 위의 내용(1,2,3번)을 photos의 개수만큼 반복
+     		});
+    	}
     });
     
     //모든 img 엘리먼트 각각 click 이벤트를 바인딩하는 방식

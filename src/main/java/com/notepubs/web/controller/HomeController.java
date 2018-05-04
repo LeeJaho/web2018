@@ -17,10 +17,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.notepubs.web.entity.Note;
+import com.notepubs.web.entity.NoteView;
 import com.notepubs.web.service.HomeService;
+import com.notepubs.web.service.NoteService;
 
 @Controller("rootController")
 @RequestMapping("/")
@@ -28,7 +32,6 @@ public class HomeController {
 	
 	@Autowired
 	private HomeService service;
-	
 	
 	@GetMapping("index")
 	public String index(
@@ -53,19 +56,36 @@ public class HomeController {
 		else
 			model.addAttribute("visited", "true");
 		
+		
+		List<NoteView> notes = service.getNoteList(1);
+		model.addAttribute("notes", notes);
+		
 		return "index";
 	}
 	
 	@GetMapping("book-list-partial")
 	public String bookListPartial() {
 		
-		try {
+		/*try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		return "book-list-partial";
+	}
+	
+	
+	@GetMapping("published-list-partial")
+	public String publishedListPartial() {
+		
+		/*try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		return "published-list-partial";
 	}
 	
 	@GetMapping("note-photo-list")
