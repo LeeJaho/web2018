@@ -15,7 +15,7 @@ import javax.persistence.Transient;
 
 import org.apache.ibatis.annotations.Many;
 
-@Entity
+//@Entity
 public class Comment {
    
    @Id

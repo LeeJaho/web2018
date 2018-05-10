@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.notepubs.web.entity.NoteView;
+import com.notepubs.web.entity.Note;
 import com.notepubs.web.service.author.NoteService;
 
 
@@ -24,7 +24,7 @@ public class NoteController {
 	@RequestMapping("list")
 	public String list(Integer page, Model model) {
 		
-		List<NoteView> notes = service.getNoteList(page);
+		List<Note> notes = service.getNoteList(page);
 		
 		
 		model.addAttribute("notes", notes);

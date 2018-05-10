@@ -39,6 +39,7 @@ public class HibernateConfig {
 		return dataSource;
 	}
 	
+	//Hibernate 설정 sessionFactory 쓸려고
 	@Bean
 	public LocalSessionFactoryBean sessionFactory() throws PropertyVetoException{
 		Properties pros = new Properties();

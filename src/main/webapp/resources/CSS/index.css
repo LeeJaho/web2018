@@ -108,15 +108,20 @@
 			
 .category-views{
 	position: relative;
+	overflow: hidden;
+	
 }
 
-	/* .category-views > section{
-		transition: 400ms;
-	} */
-	.category-views .show{
-		border: 1px solid red;
+	.category-views > section{
+		/* border: 1px solid red; */
 		position: absolute;
 		top: 0px;
+		width:100%;
+		background: #fff;
+	}
+	.category-views .show{
+		/* border: 1px solid red; */
+
 		right: 300px;
 		width: 100%;
 	}

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import com.notepubs.web.dao.NoteDao;
 import com.notepubs.web.entity.Note;
-import com.notepubs.web.entity.NoteView;
 
 
 
@@ -25,22 +24,22 @@ public class HbNoteDao implements NoteDao {
 	
 	@Transactional
 	@Override
-	public List<NoteView> getList(Integer page) {
+	public List<Note> getList(Integer page) {
 		
 		//session 팩토리에서 꺼내오기!
 		Session session = sessionFactory.getCurrentSession();
-		Query<NoteView> query = session.createQuery("from NoteView", NoteView.class);
-		List<NoteView> list = query.getResultList();
+		Query<Note> query = session.createQuery("from Note", Note.class);
+		List<Note> list = query.getResultList();
 		
 		return list;
 	}
 	
 	@Transactional
 	@Override
-	public NoteView get(Integer id) {
+	public Note get(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		
-		NoteView note = session.get(NoteView.class, id);
+		Note note = session.get(Note.class, id);
 		
 		return note;
 	}
@@ -54,32 +53,41 @@ public class HbNoteDao implements NoteDao {
 	
 	@Transactional
 	@Override
-	public NoteView getPrevNote(Integer id) {
+	public Note getPrevNote(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		
-		Query<NoteView> query = session.createQuery("from NoteView " + 
-				"where regDate < (select regDate from NoteView where id=:id) " + 
-				"order by regDate desc", NoteView.class)
+		Query<Note> query = session.createQuery("from Note " + 
+				"where regDate < (select regDate from Note where id=:id) " + 
+				"order by regDate desc", Note.class)
 				.setParameter("id", id)
 				.setMaxResults(1);
 		
-		NoteView note = query.getSingleResult();
+		Note note = null;
+		List<Note> list = query.list();
+		
+		if(list.size() > 0)
+			note = list.get(0);
+		
 		//NoteView prevNote = session.get(NoteView.class, id);
 		return note;
 	}
 	
 	@Transactional
 	@Override
-	public NoteView getNextNote(Integer id) {
+	public Note getNextNote(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		
-		Query<NoteView> query = session.createQuery("from NoteView " + 
-				"where regDate > (select regDate from NoteView where id=:id) " + 
-				"order by regDate", NoteView.class)
+		Query<Note> query = session.createQuery("from Note " + 
+				"where regDate > (select regDate from Note where id=:id) " + 
+				"order by regDate", Note.class)
 				.setParameter("id", id)
 				.setMaxResults(1);
 		
-		NoteView note = query.getSingleResult();
+		Note note = null;
+		List<Note> list = query.list();
+		
+		if(list.size() > 0)
+			note = list.get(0);
 		return note;
 	}
 

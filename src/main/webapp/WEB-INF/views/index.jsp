@@ -86,6 +86,25 @@
         	 var categoryList = $(".category ul");
              var categoryButton = $(".category ul > li");
              var ajaxIcon = null;
+             //대신이형
+             var views = categoryViews.children();
+             var view = views.eq(0);
+			//초기상태 설정
+             views.css({
+            	 visibility:"hidden",
+             	zIndex:"1"
+             })
+             
+             view.css({
+            	 visibility:"visible",
+             	zIndex:"3"
+             })
+             categoryViews.css({
+           		height: view.height()
+           		/* left: "0%" */
+             });
+             
+             var oldView = view;
              
              categoryList.click(function(e){
             	 //e.target 내가 클릭한 것 / e.currentTarget binding 되어 잇는것?
@@ -121,11 +140,63 @@
 
              	//view가 null이면 ajax로 가져오기
              	
+             	//대신이형
              	//1. CSS로 초기상태 만들기
                // -view들의 position이 모두 absolute로 겹치게 한다.
-               // -view들의 부모는 첫번째 view의 높이와 같게 한다.
                // 단, 그 높이는 실행해봐야 아는 문제이므로 스크립트로 처리한다.
-             	/* if(view.length == 0){
+               // -view들의 부모는 현재 view의 높이와 같게 한다.
+             	
+               // z-index 1 2 3 
+               //1) 선택된 놈을 왼쪽으로 위치시키고 z축 제일 위로 올라가도록
+               //모든 view 1 주고
+               views.css({
+            	   zIndex: "1",
+            	   visibility: "hidden"
+               });
+             	//띄워져있던 기존 view에 2 주고
+				oldView.css({
+					zIndex: "2",
+					visibility: "visible"
+				});
+               
+               //새로운 view에 3준다
+               view.css({
+            	   left: "-100%",
+            	   zIndex: "3",
+           		   visibility: "visible"
+               });
+               //2) 그 놈의 높이로 부모 영역의 높이를 맞추고
+               
+               
+               //3) 그 놈이 천천히 밀고 들어온다
+               
+               categoryViews.animate({
+             		height: view.height()
+             		/* left: "0%" */
+               },400, function(){
+            	   
+            	   view.animate({
+                 	  left: "0%" 
+                    });
+     				
+               });
+               
+               
+             	//2. 현재 view를 제외한 나머지는 hidden 한다
+				/* categoryViews.children().css({
+					display:"none"
+				});
+             	
+             	view.css({
+             		display:"block"
+             	}); */
+             	
+             	//새로운 view를 oldView로 해줌
+             	oldView = view;
+         
+               
+               
+               /* if(view.length == 0){
              		ajaxIcon = $("<img />")
 				                    .attr("src", "resources/images/ajax-loader.gif")
 				                    .css({
@@ -233,9 +304,9 @@
 	}
 
      	else view.addClass("show");
-         view.removeClass("hidden");
+         view.removeClass("hidden");*/
      });
- }); */
+ });
       </script>
    
    <section class="notepubs shutter"> 
@@ -304,7 +375,7 @@
 				<ul>
 		            <c:forEach var="note" items="${notes}">
 		            <li>
-		               <div><a href="${note.id}">${note.title }</a></div>
+		               <div><a href="note/${note.id}">${note.title }</a></div>
 		               <div>${note.content}</div>
 		               <div><span>분류</span><span>${note.regDate}</span><span>${note.commentCount}</span></div>
 		            </li>
@@ -315,18 +386,22 @@
 			<section class="book-list">
 				<h1 class="hidden">공개북 목록</h1>
 				<ul>
-					<li>
-						<a href="note/list">책</a>
-					</li>
+						<li><a href="note/list">책1</a></li>
+						<li><a href="note/list">책2</a></li>
+						<li><a href="note/list">책3</a></li>
+						<li><a href="note/list">책4</a></li>
+						<li><a href="note/list">책5</a></li>
+						<li><a href="note/list">책6</a></li>
 				</ul>
 			</section>
 			
-			<section class="published-book-list">
+			<section class="published-list">
 				<h1 class="hidden">출간된 책 목록</h1>
 				<ul>
-					<li>
-						<a href="note/list">책</a>
-					</li>
+					<li><a href="note/list">출간 책 목록1</a></li>
+					<li><a href="note/list">출간 책 목록2</a></li>
+					<li><a href="note/list">출간 책 목록3</a></li>
+					<li><a href="note/list">출간 책 목록4</a></li>
 				</ul>
 			</section>
 		</div>

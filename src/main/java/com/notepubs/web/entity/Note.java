@@ -35,19 +35,45 @@ public class Note {
 	
 	//CRUD 가능해야 하니까 Note에다 놓는다
 	@OneToMany(mappedBy="note", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	private List<Comment> comments;
+	private /*List<Comment>*/List<NoteComment> comments;
 
 	
 	
 	
 	
-	public List<Comment> getComments() {
+	public List<NoteComment> getComments() {
 		return comments;
 	}
 
-	public void setComments(List<Comment> comments) {
+	public void setComments(List<NoteComment> comments) {
 		this.comments = comments;
 	}
+	
+	@Transient //hibernate에서 만들 필요 없고 내가 담아줄 것들이라는 선언
+	private Note prevNote;
+	@Transient
+	private Note nextNote;
+	
+	
+	public void setPrevNote(Note prevNote) {
+		this.prevNote = prevNote;
+	}
+	
+	public void setNextNote(Note nextNote) {
+		this.nextNote = nextNote;
+	}
+	
+	public Note getPrevNote() {
+		return prevNote;
+	}
+
+	
+	public Note getNextNote() {
+		return nextNote;
+	}
+
+	
+
 
 	public Note() {
 		

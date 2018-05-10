@@ -168,6 +168,92 @@ h1, h2, h3, h4, h5, h6{
                   
                }
                
+/* <!--대신이형 --> */
+/* --- note detail ---------------------------------------------------------- */
+.note-detail{
+   
+}
+
+   .note-detail article>header{
+      padding : 20px 32px 0px 32px;
+   }
+   
+   .note-detail article>header h1{
+      text-align: center;
+   }
+   
+   .note-detail article>header h1>span{
+      display: block;
+       white-space: normal;
+       padding-top: 4px;
+       font-weight: normal;
+       font-size: 24px;
+       line-height: 29px;
+       letter-spacing: -1px;
+       word-break: break-word;
+   }
+
+   .note-detail article>header h2{
+      text-align: center;      
+   }
+
+   .note-detail article>header h2>span
+   {
+      display: inline-block;
+       overflow: hidden;
+       position: relative;
+       height: 18px;
+       padding: 0 26px;
+       font-size: 12px;
+       color: #9199A4;
+   }
+
+   .note-detail article>header h2>span::before{
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 20px;
+      height: 1px;
+      background-color: #ecf0f5;
+      content: '';
+   }
+   
+   .note-detail article>header h2>span::after{
+      position: absolute;
+      right: 0;
+      top: 50%;
+      width: 20px;
+      height: 1px;
+      background-color: #ecf0f5;
+      content: '';
+   }
+
+   .note-detail article>footer{
+      height: 37px;
+       border-top: 1px solid #9199a4;
+       border-bottom: 1px solid #ecf0f5;
+       margin: 29px 20px 0;
+       
+       font-size: 12px;
+       line-height: 38px;
+       color: #9199A4;
+   }
+   
+   .note-detail article>div{
+      /* line-height: 27px;
+       color: #303030;
+       word-break: break-word;
+       font-size: 14px; */
+       
+       padding: 0 20px 30px;
+       margin: 34px auto 0;
+       max-width: 800px;
+       font-size: 14px;
+       line-height: 27px;
+       color: #303030;
+       word-break: break-word;
+   }
+               
 .btn-list{
    position: fixed;
    right: 20px;
@@ -244,5 +330,17 @@ h1, h2, h3, h4, h5, h6{
 .aside.show{
    left: 0%;
    
+}
+
+
+/*-----------------comment--------------*/
+
+.comment-wrapper{
+	height: 500px;
+	border: 1px solid black;
+	
+}
+.comment-info{
+	display: flex;
 }
                

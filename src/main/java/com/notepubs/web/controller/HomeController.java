@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.notepubs.web.entity.Note;
-import com.notepubs.web.entity.NoteView;
 import com.notepubs.web.service.HomeService;
 import com.notepubs.web.service.NoteService;
 
@@ -50,6 +49,7 @@ public class HomeController {
 			//cookie를 가져올 수 있는 위치
 			cookie.setPath("/");
 			response.addCookie(cookie);
+			model.addAttribute("visited", "false");
 		}
 		
 		//방문한 적 있다면 bool 값 넘겨주자 view단으로
@@ -57,7 +57,7 @@ public class HomeController {
 			model.addAttribute("visited", "true");
 		
 		
-		List<NoteView> notes = service.getNoteList(1);
+		List<Note> notes = service.getNoteList(1);
 		model.addAttribute("notes", notes);
 		
 		return "index";

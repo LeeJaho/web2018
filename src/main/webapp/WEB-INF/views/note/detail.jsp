@@ -4,11 +4,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 
 	<fmt:setLocale value="en_US" scope="session"/>	
-	<main class="main note detail">
+	<main class="main note-detail">
 		<article>
 			<header>
 				<h1>${note.title}</h1>
-				<h2>컴퓨터 프로그래밍</h2>
+				<!-- <h2>컴퓨터 프로그래밍</h2> -->
 			</header>
 			<footer>
 			<%-- 	<span>${note.writerId}</span> --%>
@@ -43,8 +43,30 @@
 				<a href="${note.id}/like" class="btn btn-like">좋아요</a>
 			</div>
 		</section>
+		
+		<!-- 대신이형 -->
+		<section class="comment-form">
+            <h1 class="hidden">댓글 입력 폼</h1>
+            <h2>댓글을 달아보세요</h2>
+              <form action="${note.id}/comment/reg" method="post">
+                     <div style="height:300px; diplay:flex; flex-direction: column; padding:10px; text-align: center">
+                        <div style="display:flex;">
+                           <input type="text" style="width:50%; margin-right:5px; border:none;" placeholder="필명" name="nic-name" />
+                           <input type="text" style="width:50%;margin-right:5px; border:none;" placeholder="비밀번호" name="pwd" />
+                        </div>
+                        
+                        <input type="text" style="width:100%; height:50%; margin-top:15px;" placeholder="" name="content" />
+                        
+                        <div style="display: flex; margin-top:10px; justify-content: space-between;">
+                           <div><input type="checkbox" name="secret" value="true"/>비밀댓글</div>
+                           <div><input type="submit"/></div>
+                        </div>
+                     </div>
+               </form>
+         </section>
+		
 		<section>
-			<h1>${note.commentCount}Comments</h1>
+			<h1>Comments</h1>
 			<ul>
 				<c:forEach var="c" items="${note.comments}">
 					<li>
@@ -59,7 +81,7 @@
 								</td>
 							</tr>
 							<tr>
-								
+							 	
 								<td>${c.content}</td>
 							</tr>
 							
@@ -94,12 +116,13 @@
 			</ul>
 		</nav>
 </main>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 	window.addEventListener("load", function(){
 		var selButton = document.querySelector("#sel-button");
 		var editButton = document.querySelector("#edit-button");
 		var deleteButton = document.querySelector("#delete-button");
+		
 		
 		selButton.onclick = function(){
 			// editButton.style.bottom="50px";
@@ -108,6 +131,36 @@
 			// editButton.classList.remove("");
 		};
 
+	});
+	
+	$(function(){
+		var submitButton  = $(".comment-form input[type='submit']");
+		//var nicNameInput  = $(".comment-form input[name='nicName']").val();
+		
+		submitButton.click(function(e){
+			e.preventDefault();
+			//alert(nicNameInput);
+			
+			var data = $(".comment-form form").serialize();
+			alert(data);
+			/*
+			$.ajax();
+			$.get(); / $.getJSON() / $.getScript()
+			$.post();
+			*/
+			
+			//$.post("?/comment/reg", {nickName:nicNameInput, val(),})
+			
+			$.post("${note.id}/comment/reg", data, function(result){
+					alert(result);
+			});
+			
+			//alert(data);
+			//파일이 포함되느냐 아니냐 encodeType
+			//Multipart -> new FormData();
+			//key = value & key = value ....
+			
+		});
 	});
 
 </script>

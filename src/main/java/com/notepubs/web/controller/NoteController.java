@@ -8,11 +8,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.notepubs.web.entity.NoteView;
+import com.google.gson.Gson;
+import com.notepubs.web.entity.Note;
+import com.notepubs.web.entity.NoteComment;
+
 import com.notepubs.web.service.NoteService;
+
+import net.bytebuddy.implementation.bytecode.constant.DefaultValue;
 
 
 
@@ -23,10 +30,12 @@ public class NoteController {
 	@Autowired
 	private NoteService service;
 	
+	
+	
 	@RequestMapping("list")
 	public String list(@RequestParam(value="p", defaultValue="1") Integer page, Model model) {
 		
-		List<NoteView> notes = service.getNoteList(page);
+		List<Note> notes = service.getNoteList(page);
 		model.addAttribute("notes", notes);
 		
 		//System.out.println(page);
@@ -35,7 +44,15 @@ public class NoteController {
 		return "note.list";
 	}
 	
-	
+	@RequestMapping("ajax-list")
+	@ResponseBody
+	public String list(@RequestParam(value="p", defaultValue="1") Integer page) {
+		
+		//List<NoteComment> comments = service.getNoteCommentList(page);
+		List<Note> notes = service.getNoteList(page);
+		
+		return new Gson().toJson(notes);
+	}
 	
 	/*
 	 * http: ~~~~~~ /note/detail?id=3 -> param으로 id를 읽는다
@@ -49,7 +66,7 @@ public class NoteController {
 		
 		//NoteView prev = service.getPrevNote(id);
 		//NoteView next = service.getNextNote(id);
-		NoteView note = service.getNote(id);
+		Note note = service.getNote(id);
 		model.addAttribute("note", note);
 		//model.addAllAttributes("prev",prev);
 		return "note.detail";
@@ -69,4 +86,24 @@ public class NoteController {
 		
 		return "redirect:../" + noteId;
 	}
+	
+	@PostMapping("{id}/comment/reg")
+	@ResponseBody
+	public String commentReg(NoteComment comment
+			, @RequestParam("nic-name") String nicName
+			, @RequestParam(value="secret", defaultValue="false") Boolean secret
+			, @PathVariable("id") Integer noteId) {
+		
+		//결과값 던져줌
+		comment.setSecret(secret);
+		comment.setNicName(nicName);
+		
+		//comment.setNoteId(noteId); //이게 무의미함 -> NoteComment에서 어차피 noteId는 insertable=false니까
+		int result = service.addCommentOfNote(comment, noteId);
+		
+		return String.valueOf(result); //"redirect:../../detail" 백엔드상에서 재갱신 느낌
+								//ajax로 하려면 등록되었다 상태만 알려주고 프론트에서 해줌
+	}
+	
+	
 }
