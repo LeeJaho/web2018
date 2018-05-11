@@ -64,17 +64,36 @@
                      </div>
                </form>
          </section>
-		
-		<section>
-			<h1>Comments</h1>
-			<ul>
-				<c:forEach var="c" items="${note.comments}">
+			<template id="comment-template">
 					<li>
 						<table border="1">
 							<tr>
 								<td rowspan="2"><img src=""/>1</td>
 								<td>
-									<span>${c.writerId}</span>
+									<span></span>
+									<span></span>
+									<span></span>
+								</td>
+							</tr>
+							
+							<tr> 	
+								<td></td>
+							</tr>
+							
+						</table>
+					</li>
+				</template>
+		<section class="comment-list-box">
+			<h1>Comments</h1>
+			<ul>
+				
+				<c:forEach var="c" items="${note.comments}">
+					<li>
+						<table border="1">
+							<tr>
+								<td rowspan="2"><img src=""/></td>
+								<td>
+									<span>${c.nicName}</span>
 									<span>${c.regDate}</span>
 									<span></span>
 								
@@ -135,6 +154,7 @@
 	
 	$(function(){
 		var submitButton  = $(".comment-form input[type='submit']");
+		var commentListBoxUl = $(".comment-list-box ul");
 		//var nicNameInput  = $(".comment-form input[name='nicName']").val();
 		
 		submitButton.click(function(e){
@@ -142,7 +162,7 @@
 			//alert(nicNameInput);
 			
 			var data = $(".comment-form form").serialize();
-			alert(data);
+			//alert(data);
 			/*
 			$.ajax();
 			$.get(); / $.getJSON() / $.getScript()
@@ -151,9 +171,59 @@
 			
 			//$.post("?/comment/reg", {nickName:nicNameInput, val(),})
 			
-			$.post("${note.id}/comment/reg", data, function(result){
-					alert(result);
-			});
+			//$.post("${note.id}/comment/reg", data, function(result){
+					//alert(result);
+				//if(parseInt(result) == 1){
+					
+					$.getJSON("${note.id}/ajax-comment-list",function(comments){
+						/* var cmt = JSON.parse(data); */
+						//alert(comments[0].nicName);
+						//1. 기존 목록을 지운다. 몽땅
+						commentListBoxUl.empty();
+						
+						//2.가져온 데이터 목록으로 댓글을 채운다
+						//2-1. 댓글 항목을 위한 View 템플릿 사본을 준비
+						 //1) template 얻어오기
+						var template = document.querySelector('#comment-template');
+						var cloneLi = document.importNode(template.content, true);
+						
+						var spans = cloneLi.querySelectorAll("tr:first-child td span");
+						var td = cloneLi.querySelector("tr:nth-child(2) td");
+						spans[0].textContent=comments[0].nicName;
+						spans[1].textContent=comments[1].regDate;
+						td.textContent = comments[0].content;
+						
+						// Populate the src at runtime.
+						commentListBoxUl.get(0).appendChild(cloneLi);
+						
+						
+					/* //  === 기존 목록을 대체 해야 한다. jquery 이용한 것====
+	                     // 1. 기존 목록을 지운다. 몽땅
+	                     noteCommentUl.empty();
+	                     // 2. 가져온 데이터목록으로 댓글을 채운다.
+	                     // 2-1. 댓글 항목을 위한 View 템플릿 사본을 준비
+	                     //var template = document.querySelector("#comment-template");   
+	                     var template = $("#comment-template");
+	                     
+	                     //var cloneLi = document.importNode(template.content, true);
+	                     var cloneLi = $(document.importNode(template.get(0).content, true));
+	                     // 2-2. view 템블릿 사본에 comments의 0번째 데이터를 채우기
+	                     
+	                     //var spans = cloneLi.querySelectorAll("tr:first-child td span");
+	                     var spans = cloneLi.find("tr:first-child td span");
+	                     //var td = cloneLi.querySelector("tr:nth-child(2) td");
+	                     var td = cloneLi.find("tr:nth-child(2) td");
+	                     
+	                     //spans[0].textContent =comments[0].nicName;
+	                     //spans[1].textContent = comments[0].regDate;
+	                     //td.textContent = comments[0].content;
+	                     spans.eq(0).text(comments[0].nicName);
+	                     spans.eq(1).text(comments[0].regDate);
+	                     td.text(comments[0].content); */
+				//	});
+				});
+						
+			//});
 			
 			//alert(data);
 			//파일이 포함되느냐 아니냐 encodeType

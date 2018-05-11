@@ -44,14 +44,17 @@ public class NoteController {
 		return "note.list";
 	}
 	
-	@RequestMapping("ajax-list")
+	@RequestMapping("{id}/ajax-comment-list")
 	@ResponseBody
-	public String list(@RequestParam(value="p", defaultValue="1") Integer page) {
+	public String list(
+			@PathVariable("id") Integer noteId
+			,@RequestParam(value="p", defaultValue="1") Integer page) {
 		
-		//List<NoteComment> comments = service.getNoteCommentList(page);
-		List<Note> notes = service.getNoteList(page);
+		List<NoteComment> comments = service.getNoteCommentListByNote(page, noteId);
 		
-		return new Gson().toJson(notes);
+		
+		return new Gson().toJson(comments);
+		//return comments.toString();
 	}
 	
 	/*
@@ -91,15 +94,14 @@ public class NoteController {
 	@ResponseBody
 	public String commentReg(NoteComment comment
 			, @RequestParam("nic-name") String nicName
-			, @RequestParam(value="secret", defaultValue="false") Boolean secret
+			//, @RequestParam(value="secret", defaultValue="false") Boolean secret(secret default 값을 false로)
 			, @PathVariable("id") Integer noteId) {
 		
 		//결과값 던져줌
-		comment.setSecret(secret);
+		//comment.setSecret(secret);
 		comment.setNicName(nicName);
-		
-		//comment.setNoteId(noteId); //이게 무의미함 -> NoteComment에서 어차피 noteId는 insertable=false니까
-		int result = service.addCommentOfNote(comment, noteId);
+		comment.setNoteId(noteId); //이게 무의미함 -> NoteComment에서 어차피 noteId는 insertable=false니까
+		int result = service.addComment(comment);
 		
 		return String.valueOf(result); //"redirect:../../detail" 백엔드상에서 재갱신 느낌
 								//ajax로 하려면 등록되었다 상태만 알려주고 프론트에서 해줌

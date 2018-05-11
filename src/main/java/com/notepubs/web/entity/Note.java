@@ -79,6 +79,8 @@ public class Note {
 		
 	}
 
+	
+
 	public Note(String title, String content) {		
 		this.title = title;
 		this.content = content;		
@@ -95,6 +97,11 @@ public class Note {
 		this.hit = hit;
 		this.order = order;
 		this.pub = pub;
+	}
+
+	
+	public Note(int noteId) {
+		this.id = noteId;
 	}
 
 	public int getId() {

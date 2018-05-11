@@ -3,6 +3,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,8 +51,7 @@
             var check = true;
             shutterContent.css("transition", "1s");
             
-            
-            //초기상태 (펼칠것인지, 접을 것인지) : visited 값을 이용해서
+          //초기상태 (펼칠것인지, 접을 것인지) : visited 값을 이용해서
             if(${visited}){
             	 shutterContent.css("margin-top", -1*shutter.outerHeight()+"px");
             	 shutterButton.css("background", '#007100 url("resources/images/ic_expand_less_black_24dp_1x.png") no-repeat center');
@@ -377,7 +379,7 @@
 		            <li>
 		               <div><a href="note/${note.id}">${note.title }</a></div>
 		               <div>${note.content}</div>
-		               <div><span>분류</span><span>${note.regDate}</span><span>${note.commentCount}</span></div>
+		               <div><span>분류</span><span>${note.regDate}</span><span>(${fn:length(note.comments)})<%-- ${note.comments.size()} --%></span></div>
 		            </li>
 		            </c:forEach>
         		 </ul>

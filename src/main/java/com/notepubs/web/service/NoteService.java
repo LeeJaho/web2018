@@ -57,21 +57,17 @@ public class NoteService {
 	public int addComment(NoteComment comment) {
 		
 		int result = noteCommentDao.insert(comment);
-		return 0;
+		return result;
 	}
 
-	public int addCommentOfNote(NoteComment comment, Integer noteId) {
+	public List<NoteComment> getNoteCommentListByNote(Integer page, Integer noteId) {
 		
-		Note note = noteDao.get(noteId);
-		note.getComments().add(comment);
-		return 0;
-	}
-
-	/*public List<NoteComment> getNoteCommentList(Integer page) {
+		List<NoteComment> list = noteCommentDao.getListByNote(page, noteId);
 		
-		List<NoteComment> list = noteCommentDao.getList(page);
+		for(NoteComment n : list)
+			n.setNote(null);
 		
 		return list;
-	}*/
+	}
 	
 }
