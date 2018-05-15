@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.notepubs.web.dao.NoteDao;
 import com.notepubs.web.dao.NoteLikeDao;
 import com.notepubs.web.entity.Note;
+import com.notepubs.web.entity.NoteView;
 
 
 @Service("homeService")
@@ -19,10 +20,15 @@ public class HomeService {
 	@Autowired
 	private NoteLikeDao noteLikeDao;
 	
-	public List<Note> getNoteList(Integer page) {
+	public List<NoteView> getNoteList(Integer page) {
 		
 		//noteDao = new ?();
-		List<Note> list = noteDao.getList(page);
+		List<NoteView> list = noteDao.getList(page);
+		
+		//list의 각 Note 객체마다 관련 NoteComment 객체를
+		//1 : N으로 담는다
+		
+		
 		return list;
 	}
 }

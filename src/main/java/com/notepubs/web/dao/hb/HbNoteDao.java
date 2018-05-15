@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.notepubs.web.dao.NoteDao;
 import com.notepubs.web.entity.Note;
+import com.notepubs.web.entity.NoteView;
 
 
 
@@ -24,22 +25,23 @@ public class HbNoteDao implements NoteDao {
 	
 	@Transactional
 	@Override
-	public List<Note> getList(Integer page) {
+	public List<NoteView> getList(Integer page) {
 		
 		//session 팩토리에서 꺼내오기!
 		Session session = sessionFactory.getCurrentSession();
-		Query<Note> query = session.createQuery("from Note", Note.class);
-		List<Note> list = query.getResultList();
+		
+		Query<NoteView> query = session.createQuery("from NoteView", NoteView.class);
+		List<NoteView> list = query.getResultList();
 		
 		return list;
 	}
 	
 	@Transactional
 	@Override
-	public Note get(Integer id) {
+	public NoteView get(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		
-		Note note = session.get(Note.class, id);
+		NoteView note = session.get(NoteView.class, id);
 		
 		return note;
 	}

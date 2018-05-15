@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.notepubs.web.entity.Note;
+import com.notepubs.web.entity.NoteView;
 import com.notepubs.web.service.HomeService;
 import com.notepubs.web.service.NoteService;
 
@@ -37,6 +38,9 @@ public class HomeController {
 			@CookieValue(value="vid", /*쿠키 안들어왔을 때*/ defaultValue="") String vid
 			, HttpServletResponse response
 			, Model model) {
+		List<NoteView> notes = service.getNoteList(1);
+		model.addAttribute("notes", notes);
+		
 		//기본적으로 파라미터로 인식하기 때문에 2, 3 이용 시 anotation으로 언급 해줘야함
 		//1. parameter , 2. @PathValue // 3.cookie -> @CookieValue
 		//절대 겹칠 수 없는 아이디를 만들어줌 UUID
@@ -56,9 +60,6 @@ public class HomeController {
 		else
 			model.addAttribute("visited", "true");
 		
-		
-		List<Note> notes = service.getNoteList(1);
-		model.addAttribute("notes", notes);
 		
 		return "index";
 	}

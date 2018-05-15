@@ -11,8 +11,13 @@
 				<!-- <h2>컴퓨터 프로그래밍</h2> -->
 			</header>
 			<footer>
-			<%-- 	<span>${note.writerId}</span> --%>
+				<span>${note.writerId}</span>
 				<span><fmt:formatDate pattern = "yyyy-MM-dd a HH:mm" value="${note.regDate}" /></span>
+				
+				<span class="item-count-box">
+					<a href="" class="item-count comment-count">${note.commentCount}</a>
+					<span class="item-count like-count">${note.commentCount}</span>
+				</span>
 			</footer>
 			
 			<div>
@@ -86,7 +91,6 @@
 		<section class="comment-list-box">
 			<h1>Comments</h1>
 			<ul>
-				
 				<c:forEach var="c" items="${note.comments}">
 					<li>
 						<table border="1">
@@ -100,8 +104,13 @@
 								</td>
 							</tr>
 							<tr>
-							 	
-								<td>${c.content}</td>
+							 	<c:if test="${c.secret == true}">
+									<td>비밀댓글</td>
+								</c:if>
+								
+								<c:if test="${c.secret != true}">
+									<td>${c.content}</td>
+								</c:if>
 							</tr>
 							
 						</table>

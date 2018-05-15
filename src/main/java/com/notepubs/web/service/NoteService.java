@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import com.notepubs.web.dao.NoteCommentDao;
 import com.notepubs.web.dao.NoteDao;
 import com.notepubs.web.dao.NoteLikeDao;
+import com.notepubs.web.entity.Comment;
 import com.notepubs.web.entity.Note;
 import com.notepubs.web.entity.NoteComment;
 import com.notepubs.web.entity.NoteLike;
+import com.notepubs.web.entity.NoteView;
 
 
 
@@ -26,20 +28,22 @@ public class NoteService {
 	@Autowired
 	private NoteCommentDao noteCommentDao;
 	
-	public List<Note> getNoteList(Integer page) {
+	public List<NoteView> getNoteList(Integer page) {
 		
 		//noteDao = new ?();
-		List<Note> list = noteDao.getList(page);
+		List<NoteView> list = noteDao.getList(page);
 		return list;
 	}
 
-	public Note getNote(Integer id) {
+	public NoteView getNote(Integer id) {
 		
-		Note note = noteDao.get(id);
+		NoteView note = noteDao.get(id);
 		Note prevNote = noteDao.getPrevNote(id);
 		Note nextNote = noteDao.getNextNote(id);
+		List<NoteComment> comments = noteCommentDao.getListByNote(1, id);
 		note.setPrevNote(prevNote);
 		note.setNextNote(nextNote);
+		note.setComments(comments);
 		return note;
 	}
 

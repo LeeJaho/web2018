@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 //enitity와 테이블명 다르다면 @Table("name="CMT")
@@ -20,12 +21,13 @@ public class NoteComment {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToOne(cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}/*, fetch=FetchType.EAGER*/)
-	@JoinColumn(name="noteId")
+	/*@ManyToOne(cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch=FetchType.EAGER)
+	@JoinColumn(name="noteId")*/
 	//참조키와 관련된 enitity를 객체로 만들어준다
+	@Transient
 	private Note note;
 	
-	@Column(insertable=false, updatable=false) //insert, update 신경쓰지마라?
+	//@Column(insertable=false, updatable=false) //insert, update 신경쓰지마라?
 	private int noteId;
 	
 	private String nicName;

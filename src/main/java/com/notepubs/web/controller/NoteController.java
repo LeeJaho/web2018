@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.notepubs.web.entity.Note;
 import com.notepubs.web.entity.NoteComment;
-
+import com.notepubs.web.entity.NoteView;
 import com.notepubs.web.service.NoteService;
 
 import net.bytebuddy.implementation.bytecode.constant.DefaultValue;
@@ -35,7 +35,7 @@ public class NoteController {
 	@RequestMapping("list")
 	public String list(@RequestParam(value="p", defaultValue="1") Integer page, Model model) {
 		
-		List<Note> notes = service.getNoteList(page);
+		List<NoteView> notes = service.getNoteList(page);
 		model.addAttribute("notes", notes);
 		
 		//System.out.println(page);
@@ -69,7 +69,7 @@ public class NoteController {
 		
 		//NoteView prev = service.getPrevNote(id);
 		//NoteView next = service.getNextNote(id);
-		Note note = service.getNote(id);
+		NoteView note = service.getNote(id);
 		model.addAttribute("note", note);
 		//model.addAllAttributes("prev",prev);
 		return "note.detail";

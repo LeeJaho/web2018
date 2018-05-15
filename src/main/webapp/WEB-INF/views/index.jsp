@@ -379,7 +379,7 @@
 		            <li>
 		               <div><a href="note/${note.id}">${note.title }</a></div>
 		               <div>${note.content}</div>
-		               <div><span>분류</span><span>${note.regDate}</span><span>(${fn:length(note.comments)})<%-- ${note.comments.size()} --%></span></div>
+		               <div><span>분류</span><span>${note.regDate}</span><span>(${note.commentCount})<%-- ${note.comments.size()} --%></span></div>
 		            </li>
 		            </c:forEach>
         		 </ul>

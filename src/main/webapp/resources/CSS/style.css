@@ -237,7 +237,51 @@ h1, h2, h3, h4, h5, h6{
        font-size: 12px;
        line-height: 38px;
        color: #9199A4;
+       
+       position: relative;
    }
+   
+   .note-detail article>footer>a:last-child{
+     
+   }
+   
+   .item-count-box{
+   		float: right;
+   }
+   
+   .note-detail .item-count{
+   		text-decoration: none;
+   		color: #ec5621;
+   		margin-left: 3px;
+   		right: 0px;
+   }
+   
+   
+   .note-detail .item-count:before{
+   		content:"";
+     	display: inline-block;
+     	vertical-align: middle;
+   }
+   
+   
+  
+    /* .note-detail article>footer>a:before{ */
+    .note-detail .comment-count:before{
+
+     	width: 24px;
+     	height: 24px;
+     	background: url("../images/icon-set.png") no-repeat -288px 0px;
+     	
+   }
+   
+   .note-detail .like-count:before{
+
+     	width: 18px;
+     	height: 18px;
+     	background: url("../images/icon-set.png") no-repeat -126px 0px;
+     	background-size: 600px 300px;
+   }
+   
    
    .note-detail article>div{
       /* line-height: 27px;
